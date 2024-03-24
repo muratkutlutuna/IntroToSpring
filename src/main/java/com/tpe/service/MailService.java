@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.Random;
 
 @Component("mailService") // when ComponentScanner scans POJO classes, it creates one instance from this class
@@ -16,6 +18,24 @@ import java.util.Random;
 //whenever we call the obj it will return us the same obj
 @Scope(value="prototype")//creates new obj whenever we request the obj from the class
 public class MailService implements MessageService{
+
+    /**
+     * "@PostConstruct" is a Java annotation used to specify a method that needs to be executed after an object
+     * is constructed and all of its dependencies have been injected
+     */
+    @PostConstruct
+    public void init() {
+        System.out.println("Mail Service Object is created...");
+    }
+
+    /**
+     * "@PreDestroy" is used to annotate a method that needs to be executed just before the bean is destroyed
+     * by the container. This method is typically used to release any resources held by the bean before it is destroyed
+     */
+    @PreDestroy
+    public void Destroy() {
+        System.out.println("Mail Service Object is destroyed...");
+    }
 
     @Autowired
     private Random random;
